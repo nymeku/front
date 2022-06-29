@@ -1,0 +1,105 @@
+.carousel {
+    padding: 40px var(--margin);
+    h3 {
+        font-size: 40px;
+    }
+    .carousel-content {
+        position: relative;
+        display: grid;
+        min-width: 100%;
+        grid-auto-columns: 1fr;
+        grid-auto-flow: column;
+        column-gap: 20px;
+        margin: 0 calc(-1 * var(--margin));
+        padding: 0 var(--margin);
+        overflow: scroll;
+        // scroll-snap-type: x mandatory;
+        .card {
+            cursor: pointer;
+            scroll-snap-align: start;
+            width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 16px;
+            border: 1px solid lightgray;
+            font-family: var(--main-font);
+            position: relative;
+            .add {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 40px;
+                height: 32px;
+                background-color: var(--blue-joy);
+                border-bottom-left-radius: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                // padding-left: 8px;
+                color: white;
+                box-shadow: -4px 2px 8px rgba(0, 0, 0, 0.3);
+                transition-duration: 0.4s;
+                &:hover {
+                    transform: scale(1.2);
+                    transition-duration: 0.2s;
+                }
+            }
+            &:not(:hover) .add:not(.remove) {
+                opacity: 0;
+                transition-duration: 0.4s;
+            }
+            img {
+                aspect-ratio: 1.5;
+                margin: -16px -16px 0;
+                width: 300px;
+                object-fit: cover;
+            }
+            h4 {
+                font-size: 20px;
+                margin: 12px 0 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            h6 {
+                font-size: 14px;
+                margin: 8px 0 16px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .bottom {
+                display: flex;
+                align-items: center;
+                button {
+                    background-color: var(--blue-joy);
+                    border-radius: 4px;
+                    color: white;
+                    font-family: var(--main-font);
+                    border: none;
+                    padding: 4px 8px;
+                    width: 100%;
+                    cursor: pointer;
+                }
+                svg {
+                    margin: 0 0 0 8px;
+                    color: var(--blue-joy);
+                }
+                span {
+                    margin: 0 0 0 4px;
+                    display: block;
+                    // aspect-ratio: 2;
+                    flex-shrink: 0;
+                    font-weight: 600;
+                    color: var(--blue-joy);
+                }
+            }
+            opacity: 1;
+            transition-duration: 0.8s;
+            &.inactive {
+                opacity: 0.5;
+                transition-duration: 0.8s;
+            }
+        }
+    }
+}

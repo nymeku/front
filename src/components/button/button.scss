@@ -1,0 +1,23 @@
+a.button {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: var(--main-font);
+    height: 48px;
+    width: max-content;
+    box-sizing: content-box;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    &.normal {
+        background-color: var(--blue-joy);
+        color: white;
+    }
+    &.inverted {
+        background-color: white;
+        color: var(--blue-joy);
+    }
+}
