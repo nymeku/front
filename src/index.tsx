@@ -3,13 +3,15 @@ import "./index.scss"
 import reportWebVitals from "./reportWebVitals"
 import * as ReactDOMClient from "react-dom/client"
 import App from "./App"
-
+import { ChakraProvider } from "@chakra-ui/react"
 const root = ReactDOMClient.createRoot(document.getElementById("root")!)
 
 root.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>
+	<ChakraProvider>
+		<React.StrictMode>
+			<App />
+		</React.StrictMode>
+	</ChakraProvider>
 )
 
 // If you want to start measuring performance in your app, pass a function
