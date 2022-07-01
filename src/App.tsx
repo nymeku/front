@@ -8,6 +8,7 @@ import { TripProvider } from "./contexts/trip"
 import App from "./views/App/App"
 import SignIn from "./views/auth/SignIn"
 import SignUp from "./views/auth/signup"
+import Trip from "./views/trip/trip"
 
 /**
  * It renders a div that can be moved around the screen, and when activated, outlines all elements on
@@ -114,6 +115,7 @@ const Application: React.FC = () => {
 					<Route path="/destination/:city" element={<Choose type="destination" />} />
 					<Route path="/auth/signin" element={<SignIn />} />
 					<Route path="/auth/signup" element={<SignUp />} />
+					<Route path="/destination/trip" element={<Trip />} />
 				</Routes>
 			</TripProvider>
 		</BrowserRouter>
