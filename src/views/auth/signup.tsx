@@ -121,14 +121,7 @@ export default function SignUp() {
                                 <Button bgColor={"#4DCCBD"} textColor="white" type="submit" isLoading={loading}>
                                     Connexion
                                 </Button>
-                                <Box color={"black"} display="flex" experimental_spaceX={"1"}>
-                                    <Text>Pas encore inscrit ?</Text>
-                                    <Link color="#4DCCBD" textColor={"#4DCCBD"} href="/auth/signup">
-                                        <Text color="#4DCCBD" textColor={"#4DCCBD"}>
-                                            S'inscrire
-                                        </Text>
-                                    </Link>
-                                </Box>
+                                
                             </Box>
                         </FormControl>
                     </form>
