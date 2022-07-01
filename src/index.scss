@@ -1,69 +1,70 @@
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .block-scroll {
-    overflow: hidden;
+	overflow: hidden;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
 
 * {
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: auto;
-    font-family: var(--main-font);
+	box-sizing: border-box;
+	overflow-x: hidden;
+	overflow-y: auto;
+	font-family: var(--main-font);
 }
 html,
 .noscrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 html::-webkit-scrollbar,
 .noscrollbar::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 a,
 a:visited,
 a:hover,
 a:active {
-    text-decoration: unset;
-    color: unset;
+	text-decoration: unset;
+	color: unset;
 }
 :root {
-    --margin: 120px;
-    --grey: #383a3c;
-    --false-black: rgb(50, 50, 50);
-    --blue-joy: #4dccbd;
-    --orange-joy: #eb6424;
-    --nunito: "Nunito Sans", sans-serif;
-    --roboto: "Roboto", sans-serif;
-    --main-font: var(--nunito);
-    --second-font: var(--roboto);
-    --column-margin: 120px;
-    --column-gap: 20px;
-    --column: calc((100vw - 2 * var(var(--column-margin)) - 11 * var(var(--column-gap))) / 12);
-    --row: 120px;
-    --row-gap: 20px;
-    user-select: none;
+	--margin: 120px;
+	--grey: #383a3c;
+	--false-black: rgb(50, 50, 50);
+	--blue-joy: #4dccbd;
+	--orange-joy: #eb6424;
+	--nunito: "Nunito Sans", sans-serif;
+	--roboto: "Roboto", sans-serif;
+	--main-font: var(--nunito);
+	--second-font: var(--roboto);
+	--column-margin: 120px;
+	--column-gap: 20px;
+	--column: calc((100vw - 2 * var(var(--column-margin)) - 11 * var(var(--column-gap))) / 12);
+	--row: 120px;
+	--row-gap: 20px;
+	user-select: none;
 }
 html {
-    background-color: #fcfcfc;
-    // overscroll-behavior-y: contain;
-    overscroll-behavior: none;
+	background-color: #fcfcfc;
+	// overscroll-behavior-y: contain;
+	overscroll-behavior: none;
 }
 body {
-    overscroll-behavior: none;
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+	overscroll-behavior: none;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+		"Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .filler {
-    width: 100%;
-    height: 100%;
-    flex-shrink: 1;
-    flex-grow: 1;
+	width: 100%;
+	height: 100%;
+	flex-shrink: 1;
+	flex-grow: 1;
 }

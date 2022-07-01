@@ -37,7 +37,7 @@ const Home: React.FC = () => {
 				<div className="background">
 					{images.map((a) => (
 						<div>
-							<img src={a} alt="" />
+							<img src={a} alt={a} />
 						</div>
 					))}
 				</div>

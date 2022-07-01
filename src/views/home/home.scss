@@ -83,7 +83,8 @@ main.home {
 					position: absolute;
 					inset: 0vh -7vw;
 					height: 100%;
-					width: calc(100% + 14vw);
+					width: calc(100% + 14vw) !important;
+					max-width: none !important;
 					transform: rotate(-15deg) scaleX(-1);
 					object-fit: cover;
 					object-position: 50% 50%;
