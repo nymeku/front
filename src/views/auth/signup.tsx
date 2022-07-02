@@ -9,124 +9,149 @@ import { API_URL } from "../../constantes"
 
 const ajv = new Ajv({
 	allErrors: true,
-    $data: true,
+	$data: true,
 })
 formats(ajv)
 
 const schema = {
-    type: "object",
-    properties: {
-        email: { type: "string", format: "email" },
-        password: { type: "string", minLength: 8 },
-		confirmPassword: { const: { "$data": "1/password"}, type: "string"}
-    },
+	type: "object",
+	properties: {
+		email: { type: "string", format: "email" },
+		password: { type: "string", minLength: 8 },
+	},
 }
 
 const validation = ajv.compile(schema)
 
 export default function SignUp() {
-    const [email, setEmail] = React.useState("")
-    const handleChangeEmail = (event: any) => setEmail(event.target.value)
+	const navigation = useNavigate()
 
-    const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(false)
 
-    const navigation = useNavigate()
+	const [email, setEmail] = React.useState("")
+	const handleChangeEmail = (event: any) => setEmail(event.target.value)
 
-    const [password, setPassword] = React.useState("")
-    const handleChangePassword = (event: any) => setPassword(event.target.value)
+	const [password, setPassword] = React.useState("")
+	const handleChangePassword = (event: any) => setPassword(event.target.value)
 
 	const [confirmPassword, setConfirmPassword] = React.useState("")
-    const handleChangeConfirmPassword = (event: any) => setConfirmPassword(event.target.value)
+	const handleChangeConfirmPassword = (event: any) => setConfirmPassword(event.target.value)
 
-    const [show, setShow] = React.useState(false)
-    const handleClick = () => setShow(!show)
+	const [show, setShow] = React.useState(false)
+	const handleClick = () => setShow(!show)
 
-    const handleSubmit = async (event: any) => {
-        setLoading(true)
-        event.preventDefault()
+	const [show2, setShow2] = React.useState(false)
+	const handleClick2 = () => setShow2(!show2)
 
-        if (!validation({ email, password, confirmPassword })) {
-            setLoading(false)
-            return
-        }
-        try {
-			console.log("requete")
-			console.log(API_URL)
-			console.log(JSON.stringify({ "email": email, "password": password }))
-            fetch(API_URL+"/auth/register", {
-                method: "POST",
-				body: "est",
-                // body: JSON.stringify({ email: email, password: password }),
-                headers: { "Access-Control-Allow-Origin": "*" },
-            }).then((res) => {
-                if (res.ok) {
-					console.log("SUCCESSFULLY CREATED")
-                    setLoading(false)
-                    navigation("/")
-                    return
-                } else {
-					console.log("FAILED TO CREATE")
-                    setLoading(false)
-                    return
-                }
-            })
-        } catch (error) {
-            setLoading(false)
-            return
-        }
-    }
+	const handleSubmit = async (event: any) => {
+		setLoading(true)
+		event.preventDefault()
 
-    return (
-        <>
-            <Box width="100vw" height="100vh" display="flex" justifyContent="center" alignItems="center" bg={"#f2f2f2"}>
-                <Box
-                    w={[300, 400, 500]}
-                    p={4}
-                    color="white"
-                    display={"flex"}
-                    flexDirection="column"
-                    experimental_spaceY={"10"}
-                    borderWidth={"1px"}
-                    borderRadius="md"
-                    bg={"white"}
-                    padding={10}
-                    textColor="black"
-                >
-                    <Text fontSize={"2xl"} fontWeight="semibold" align="center">
-                        S'inscrire
-                    </Text>
+		if (!validation({ email, password }) || password !== confirmPassword) {
+			setLoading(false)
+			return
+		}
+		try {
+			await fetch(process.env.REACT_APP_API_BASE + "/auth/register", {
+				method: "POST",
+				body: JSON.stringify({ email: email, password: password }),
+				headers: { "Content-type": "application/json" },
+			}).then((res) => {
+				if (res.ok) {
+					setLoading(false)
+					navigation("/")
+					return
+				} else {
+					setLoading(false)
+					return
+				}
+			})
+		} catch (error) {
+			setLoading(false)
+			return
+		}
+	}
 
-                    <form onSubmit={handleSubmit}>
-                        <FormControl experimental_spaceY={"4"}>
-                            <Box>
-                                <FormLabel htmlFor="email">Email address</FormLabel>
-                                <Input id="email" type="email" value={email} onChange={handleChangeEmail} />
-                            </Box>
+	return (
+		<>
+			<Box width="100vw" height="100vh" display="flex" justifyContent="center" alignItems="center" bg={"#f2f2f2"}>
+				<Box
+					w={[300, 400, 500]}
+					p={4}
+					color="white"
+					display={"flex"}
+					flexDirection="column"
+					experimental_spaceY={"10"}
+					borderWidth={"1px"}
+					borderRadius="md"
+					bg={"white"}
+					padding={10}
+					textColor="black"
+				>
+					<Text fontSize={"2xl"} fontWeight="semibold" align="center">
+						S'inscrire
+					</Text>
 
-                            <Box>
-                                <FormLabel htmlFor="password">Password</FormLabel>
-                                <InputGroup size="md">
-                                    <Input pr="4.5rem" type={show ? "text" : "password"} placeholder="Enter password" value={password} onChange={handleChangePassword} color="black" />
-                                </InputGroup>
-                            </Box>
+					<form onSubmit={handleSubmit}>
+						<FormControl experimental_spaceY={"10"}>
+							<Box>
+								<FormLabel htmlFor="email">Adresse email</FormLabel>
+								<Input id="email" type="email" value={email} onChange={handleChangeEmail} />
+							</Box>
 
-                            <Box>
-                                <FormLabel htmlFor="password">Password</FormLabel>
-                                <InputGroup size="md">
-                                    <Input pr="4.5rem" type={show ? "text" : "password"} placeholder="Confirm password" value={confirmPassword} onChange={handleChangeConfirmPassword} color="black" />
-                                </InputGroup>
-                            </Box>
+							<Box>
+								<FormLabel htmlFor="password">Mot de passe</FormLabel>
+								<InputGroup size="md">
+									<Input
+										pr="4.5rem"
+										type={show ? "text" : "password"}
+										value={password}
+										onChange={handleChangePassword}
+										color="black"
+									/>
+									<InputRightElement width="4.5rem">
+										<Button h="1.75rem" size="sm" onClick={handleClick}>
+											{show ? "Hide" : "Show"}
+										</Button>
+									</InputRightElement>
+								</InputGroup>
+							</Box>
 
-                            <Box width={"100%"} display="flex" flexDirection={"column"}>
-                                <Button bgColor={"#4DCCBD"} textColor="white" type="submit" isLoading={loading}>
-                                    Connexion
-                                </Button>
-                                
-                            </Box>
-                        </FormControl>
-                    </form>
-                </Box>
-            </Box>
-        </>
-    )
+							<Box>
+								<FormLabel htmlFor="password">Confirmer mot de passe</FormLabel>
+								<InputGroup size="md">
+									<Input
+										pr="4.5rem"
+										type={show2 ? "text" : "password"}
+										value={confirmPassword}
+										onChange={handleChangeConfirmPassword}
+										color="black"
+									/>
+									<InputRightElement width="4.5rem">
+										<Button h="1.75rem" size="sm" onClick={handleClick2}>
+											{show2 ? "Hide" : "Show"}
+										</Button>
+									</InputRightElement>
+								</InputGroup>
+							</Box>
+
+							<Box width={"100%"} display="flex" flexDirection={"column"}>
+								<Button bgColor={"#4DCCBD"} textColor="white" type="submit" isLoading={loading}>
+									S'inscrire
+								</Button>
+								<Box color={"black"} display="flex" experimental_spaceX={"1"}>
+									<Text>Déjà membre ?</Text>
+									<Link color="#4DCCBD" textColor={"#4DCCBD"} href="/auth/signin">
+										<Text color="#4DCCBD" textColor={"#4DCCBD"}>
+											Se connecter
+										</Text>
+									</Link>
+								</Box>
+							</Box>
+						</FormControl>
+					</form>
+				</Box>
+			</Box>
+		</>
+	)
 }
