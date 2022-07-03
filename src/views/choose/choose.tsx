@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link, Navigate, useParams } from "react-router-dom"
+import { Link, useNavigate, Navigate, useParams } from "react-router-dom"
 import { discover, DiscoveryResponse } from "../../services/destination-service"
 import { linkFromReference } from "../../services/image-service"
 import Carousel from "../../components/carousel"
@@ -7,11 +7,19 @@ import Footer from "../../components/footer"
 import "./choose.scss"
 import { Item } from "../../types"
 import { useTripContext } from "../../contexts/trip"
+import { API_URL } from "../../constantes"
 
+function uppercaseFirstLtter(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+}
+function parseType(type: string) {
+    const chunks = type.split("_")
+    return chunks.map(uppercaseFirstLtter).join(" ")
+}
 const SmallCard: React.FC<Item> = ({ name, types }) => {
     return (
         <div className="small-card">
-            <label>{types[0]}</label>
+            <label>{parseType(types[0])}</label>
             <h4>{name}</h4>
         </div>
     )
@@ -23,9 +31,30 @@ type ChooseProps = {
 
 const citySuggestions = ["Nice", "Paris", "Londres", "Tokyo", "Osaka", "Milan", "Rome", "Berlin", "Shanghai", "Beijing", "Rio de Janeiro"]
 
+async function saveSelection(selection: Item[]){
+    const body = JSON.stringify(selection)
+
+    const response = await fetch(API_URL+ "/selection", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body
+    })
+    if(!response.ok){
+        throw new Error("Error while saving selection")
+    }
+    const data = await response.json()
+    if(data.status !== "CREATED"){
+        throw new Error("Error while saving selection")
+    }
+    return data.id
+}  
+
 const Choose: React.FC<ChooseProps> = ({ type }) => {
     const [Trip, setTrip] = useTripContext()
     const { city: cityParams } = useParams()
+    const navigate = useNavigate()
     const [data, setData] = React.useState<DiscoveryResponse | false>()
     React.useEffect(() => {
         if (cityParams)
@@ -46,7 +75,16 @@ const Choose: React.FC<ChooseProps> = ({ type }) => {
     if (!cityParams || data === false) return <Navigate to="/" />
     if (data === undefined) return <>Loading</>
 
-    const { city, drink, enjoy, restaurant, sleep } = data
+    const { city, drink, restaurant, sleep, events } = data
+
+    function onNext(){
+        saveSelection(Trip.items)
+        .then((id:string) => navigate("/recap/"+id))
+        .catch(err => {
+            console.error(err)
+            alert("Error while saving selection")
+        })
+    }
 
     return (
         <main className="overview">
@@ -71,7 +109,7 @@ const Choose: React.FC<ChooseProps> = ({ type }) => {
                     tempor elit a dapibus aliquet. Nulla enim purus, malesuada id felis a, ullamcorper porttitor nunc. Nulla leo dui, aliquet vitae eleifend in, sagittis nec lorem.
                 </p>
             </section>
-            <Carousel data={enjoy} title="Activités" />
+            <Carousel data={events} title="Activités" />
             <Carousel data={sleep} title="Hotels" />
             <Carousel data={drink} title="Bars" />
             <Carousel data={restaurant} title="Restaurants" />
@@ -86,14 +124,14 @@ const Choose: React.FC<ChooseProps> = ({ type }) => {
                 </nav>
             </section>
             <aside>
-                <span>Sélectionnez jusqu'à 5 éléments qui vous plaisent.</span>
-                {/* <div className="noscrollbar">
-          {Trip.items.map((a) => (
-            <SmallCard key={a.reference} {...a} />
-          ))}
-        </div> */}
+                <span>Sélectionnez jusqu'à 30 éléments qui vous plaisent.</span>
+                <div className="noscrollbar">
+                    {Trip.items.map((a) => (
+                        <SmallCard key={a.reference} {...a} />
+                    ))}
+                </div>
                 <div className={"next " + (Trip.items.length ? "" : "inactive")}>
-                    <button>Suivant</button>
+                    <button onClick={onNext}>Suivant</button>
                 </div>
             </aside>
             <Footer />

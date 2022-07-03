@@ -12,12 +12,16 @@ export type Item = {
     types: string[]
     totalRatings: number
     address: string
+    link?: string
+    isGoogle?: boolean
 }
 export type Drink = Item
 export type Event = Item
 export type Travel = Item
 export type Sleep = Item
 export type Restaurant = Item
+export type Hotel = Item
+export type Event2 = Item
 
 export type City = {
     photo: string

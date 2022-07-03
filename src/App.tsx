@@ -115,7 +115,7 @@ const Application: React.FC = () => {
 					<Route path="/destination/:city" element={<Choose type="destination" />} />
 					<Route path="/auth/signin" element={<SignIn />} />
 					<Route path="/auth/signup" element={<SignUp />} />
-					<Route path="/destination/trip" element={<Trip />} />
+					<Route path="/recap/:id" element={<Trip />} />
 				</Routes>
 			</TripProvider>
 		</BrowserRouter>
