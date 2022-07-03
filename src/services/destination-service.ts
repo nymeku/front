@@ -12,7 +12,11 @@ export type DiscoveryResponse = {
 }
 
 export async function discover(city: string, { from, to }: { from: number, to: number }): Promise<DiscoveryResponse> {
-    const res = await fetch(API_URL + "/discover/" + city + "?count=10")
+    const params = new URLSearchParams()
+    params.append("count", "10")
+    from && params.append("from", from.toString())
+    to && params.append("to", to.toString())
+    const res = await fetch(API_URL + "/discover/" + city + '?'+ params.toString())
     if (!res.ok) throw new Error(res.statusText)
     const data = await res.json() as DiscoveryResponse
     data.events = data.events.map<Event>((e: any) => {
@@ -40,7 +44,7 @@ export async function discover(city: string, { from, to }: { from: number, to: n
                 lng: e.longitude
             },
             photos: [e.main_photo_url],
-            rating: e.review_score,
+            rating: e.review_score / 2,
             reference: e.id,
             types: ["lodging"],
             totalRatings: e.review_nr,

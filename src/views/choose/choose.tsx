@@ -37,7 +37,7 @@ type Config = {
 const citySuggestions = ["Nice", "Paris", "Londres", "Tokyo", "Osaka", "Milan", "Rome", "Berlin", "Shanghai", "Beijing", "Rio de Janeiro"]
 
 async function saveSelection(config: Config, selection: Item[]) {
-    const body = JSON.stringify([{}, ...selection])
+    const body = JSON.stringify({ selection: [config, ...selection] })
 
     const response = await fetch(API_URL + "/selection", {
         method: "POST",

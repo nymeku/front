@@ -203,7 +203,7 @@ async function fetchSelection(id: string): Promise<{ data: AugmentedItem[], conf
   if (!response.ok) {
     throw new Error(`${response.status} ${response.statusText}`)
   }
-  const items = (await response.json()).result as any[];
+  const items = (await response.json()).result.selection as any[];
 
   if (!items?.length) {
     throw new Error("No items")
