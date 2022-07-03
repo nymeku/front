@@ -11,13 +11,13 @@ export type DiscoveryResponse = {
     events: Event2[],
 }
 
-export async function discover(city: string): Promise<DiscoveryResponse> {
+export async function discover(city: string, { from, to }: { from: number, to: number }): Promise<DiscoveryResponse> {
     const res = await fetch(API_URL + "/discover/" + city + "?count=10")
     if (!res.ok) throw new Error(res.statusText)
     const data = await res.json() as DiscoveryResponse
-    data.events = data.events.map<Event>((e:any) => {
+    data.events = data.events.map<Event>((e: any) => {
         return {
-            name:e.title,
+            name: e.title,
             location: {
                 lat: e.lat,
                 lng: e.lng
@@ -32,9 +32,9 @@ export async function discover(city: string): Promise<DiscoveryResponse> {
             isGoogle: false
         }
     })
-    data.sleep = data.hotels.map<Sleep>((e:any) => {
+    data.sleep = data.hotels.map<Sleep>((e: any) => {
         return {
-            name:e.hotel_name_trans,
+            name: e.hotel_name_trans,
             location: {
                 lat: e.latitude,
                 lng: e.longitude
@@ -44,7 +44,7 @@ export async function discover(city: string): Promise<DiscoveryResponse> {
             reference: e.id,
             types: ["lodging"],
             totalRatings: e.review_nr,
-            address: [e.address_trans,e.city_trans, e.country_trans].join(', '),
+            address: [e.address_trans, e.city_trans, e.country_trans].join(', '),
             link: e.url,
             isGoogle: false
         }

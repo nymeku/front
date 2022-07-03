@@ -186,29 +186,29 @@ function parseType(type: string) {
 }
 
 async function fetchSelection(id: string): Promise<{ data: AugmentedItem[], config: Config }> {
-  return {
-    data: TEST_DATA,
-    config: {
-      destination: "Milan",
-      from: Date.now(),
-      to: Date.now() + 1000 * 60 * 60 * 24 * 7,
-    }
+  // return {
+  //   data: TEST_DATA,
+  //   config: {
+  //     destination: "Milan",
+  //     from: Date.now(),
+  //     to: Date.now() + 1000 * 60 * 60 * 24 * 7,
+  //   }
+  // }
+  const response = await fetch(`${API_URL}/selection?id=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error(`${response.status} ${response.statusText}`)
   }
-  // const response = await fetch(`${API_URL}/selection?id=${id}`, {
-  //   method: "GET",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  // });
-  // if (!response.ok) {
-  //   throw new Error(`${response.status} ${response.statusText}`)
-  // }
-  // const items = await response.json() as AugmentedItem[] | null;
+  const items = (await response.json()).result as any[];
 
-  // if (!items?.length) {
-  //   throw new Error("No items")
-  // }
-  // return {data : items.slice(1), config: items[0] }
+  if (!items?.length) {
+    throw new Error("No items")
+  }
+  return {data : items.slice(1) as AugmentedItem[], config: items[0] }
 
 }
 

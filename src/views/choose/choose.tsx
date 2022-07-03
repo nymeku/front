@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link, useNavigate, Navigate, useParams } from "react-router-dom"
+import { Link, useNavigate, Navigate, useParams, useSearchParams } from "react-router-dom"
 import { discover, DiscoveryResponse } from "../../services/destination-service"
 import { linkFromReference } from "../../services/image-service"
 import Carousel from "../../components/carousel"
@@ -28,37 +28,48 @@ const SmallCard: React.FC<Item> = ({ name, types }) => {
 type ChooseProps = {
     type: "destination" | "event"
 }
+type Config = {
+    destination: string;
+    from: number;
+    to: number;
+}
 
 const citySuggestions = ["Nice", "Paris", "Londres", "Tokyo", "Osaka", "Milan", "Rome", "Berlin", "Shanghai", "Beijing", "Rio de Janeiro"]
 
-async function saveSelection(selection: Item[]){
-    const body = JSON.stringify(selection)
+async function saveSelection(config: Config, selection: Item[]) {
+    const body = JSON.stringify([{}, ...selection])
 
-    const response = await fetch(API_URL+ "/selection", {
+    const response = await fetch(API_URL + "/selection", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body
     })
-    if(!response.ok){
+    if (!response.ok) {
         throw new Error("Error while saving selection")
     }
     const data = await response.json()
-    if(data.status !== "CREATED"){
+    if (data.status !== "CREATED") {
         throw new Error("Error while saving selection")
     }
     return data.id
-}  
-
+}
+type SearchParams = {
+    from: string
+    to: string
+}
 const Choose: React.FC<ChooseProps> = ({ type }) => {
     const [Trip, setTrip] = useTripContext()
     const { city: cityParams } = useParams()
+    const [search] = useSearchParams()
+    const from = search.get("from") || Date.now().toString()
+    const to = search.get("to") || (Date.now() + 1000 * 60 * 60 * 24 * 7).toString()
     const navigate = useNavigate()
     const [data, setData] = React.useState<DiscoveryResponse | false>()
     React.useEffect(() => {
         if (cityParams)
-            discover(cityParams)
+            discover(cityParams, { from: parseInt(from), to: parseInt(to) })
                 .then(setData)
                 .then(() => window.scrollTo({ top: 0, behavior: "smooth" }))
                 .catch(() => setData(false))
@@ -77,13 +88,13 @@ const Choose: React.FC<ChooseProps> = ({ type }) => {
 
     const { city, drink, restaurant, sleep, events } = data
 
-    function onNext(){
-        saveSelection(Trip.items)
-        .then((id:string) => navigate("/recap/"+id))
-        .catch(err => {
-            console.error(err)
-            alert("Error while saving selection")
-        })
+    function onNext() {
+        saveSelection({ destination: city.name, from: parseInt(from), to: parseInt(to) }, Trip.items)
+            .then((id: string) => navigate("/recap/" + id))
+            .catch(err => {
+                console.error(err)
+                alert("Error while saving selection")
+            })
     }
 
     return (
