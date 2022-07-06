@@ -61,11 +61,14 @@ const Trip = () => {
   const Routing = () => {
     const map = useMap();
     useEffect(() => {
-      if (!map) return;
+      if (!map) return;  
       const arr = [];
       recap.map((x) => x.selected && arr.push(L.latLng(x.coordinates)));
       const routingControl = L?.Routing?.control({
         waypoints: arr,
+        waypointMode: 'snap',
+        router: L.Routing.Mapzen('valhalla-apikey', 'pedestrian'),
+        formatter: L.Routing.Mapzen.Formatter()
       }).addTo(map);
 
       return () => map?.removeControl(routingControl);
