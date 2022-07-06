@@ -6,9 +6,9 @@ import "./carousel.scss"
 import { useTripContext } from "../../contexts/trip"
 
 type CardProps = Item
-
+const MAX_ITEMS_COUNT = 30
 /* A React component that takes in a CardProps object and returns a div. */
-const Card: React.FC<CardProps> = function ({ reference, photos, name, address, rating }) {
+const Card: React.FC<CardProps> = function ({ reference, photos, name, address, rating, isGoogle, link }) {
     const item = arguments[0]
     const [Trip, setTrip] = useTripContext()
     const [open, setO] = React.useState(true)
@@ -64,7 +64,7 @@ const Card: React.FC<CardProps> = function ({ reference, photos, name, address, 
                             console.log(b.items)
                             let i = b.items.findIndex((c) => c.reference === reference)
                             console.log(i, reference)
-                            if (i === -1 && Trip.items.length < 5) b.items.push(item)
+                            if (i === -1 && Trip.items.length < MAX_ITEMS_COUNT) b.items.push(item)
                             else if (i !== -1) b.items = b.items.filter((c) => c.reference !== reference)
                             console.log(b.items)
                             return b
@@ -73,11 +73,11 @@ const Card: React.FC<CardProps> = function ({ reference, photos, name, address, 
             >
                 {added ? <FaMinus /> : <FaPlus />}
             </div>
-            <img src={photos?.length ? linkFromReference(photos[0], 400) : ""} alt={name} />
+            <img src={photos?.length ? isGoogle !== false ? linkFromReference(photos[0], 400) : photos[0] : ""} alt={name} />
             <h4>{name}</h4>
             <h6>{address}</h6>
             <div className="bottom">
-                <button onClick={() => setO(true)}>En savoir plus</button>
+                {link ? <button onClick={() => window.open(link,"_blank")}>En savoir plus</button> : <span style={{width:'100%',flexShrink:1}}></span>}
                 <FaStar />
                 <span>{rating}</span>
             </div>

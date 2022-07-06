@@ -1,18 +1,20 @@
 .trip {
-    height: 100vh;
+    // height: 100vh;
     width: 100vw;
     background-color: white;
-    display: flex;
-    flex-direction: column;
+
+    // display: flex;
+    // flex-direction: column;
     .hero {
         width: 100vw;
-        height: 60%;
+        height: 60vh;
         display: flex;
         justify-content: center;
         align-items: center;
         background-image: url("https://images.pexels.com/photos/2325446/pexels-photo-2325446.jpeg");
         background-repeat: no-repeat;
         background-size: cover;
+
         .leaflet-container {
             border-radius: 8px;
             height: 70%;
@@ -21,57 +23,70 @@
             outline: none;
         }
     }
+
+    h1 {
+        font-family: var(--nunito);
+        // font-weight: 300;
+        font-size: 40px;
+        margin-bottom: 28px;
+        text-align: center;
+    }
+
     .itinerary {
-        height: 30%;
-        width: 100%;
+        // height: 30%;
+        width: 100vw;
         display: flex;
-        // padding: 24px;
-        padding-top: 0;
+        padding: 24px var(--margin);
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        margin-bottom: 80px;
+
         .points {
-            height: 100%;
-            width: 70%;
-            h1 {
-                font-family: var(--nunito);
-                font-weight: 300;
-            }
+            width: fit-content;
+
             .activity {
                 display: flex;
-                justify-content: space-between;
-                width: 100%;
+                // justify-content: flex-start;
+                justify-content: center;
                 margin: 12px;
                 margin-left: 0;
-                overflow-x: scroll;
+                // overflow-x: scroll
+                flex-wrap: wrap;
+                gap: 24px;
+                overflow: visible;
+
                 .card {
                     height: 250px;
-                    width: 300px;
+                    width: 20%;
                     display: flex;
                     flex-direction: column;
                     background-color: rgba(211, 211, 211, 0.185);
                     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
                     border-radius: 5px;
                     margin-left: 12px;
+
                     img {
                         width: 100%;
                         height: 150px;
                         border-top-left-radius: 5px;
                         border-top-right-radius: 5px;
                     }
+
                     .description {
                         padding: 12px;
                         display: flex;
                         flex-direction: column;
                         overflow-y: scroll;
+
                         span {
                             word-break: break-all;
                             font-weight: 300;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
                         }
                     }
-                }
-                .card:first-child {
-                    margin-left: 0;
                 }
             }
         }

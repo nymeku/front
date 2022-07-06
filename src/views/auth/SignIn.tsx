@@ -1,14 +1,5 @@
 import React, { useState } from "react"
-import {
-	Button,
-	Input,
-	InputRightElement,
-	Text,
-	Link,
-	FormControl,
-	FormLabel,
-	FormHelperText,
-} from "@chakra-ui/react"
+import { Button, Input, InputRightElement, Text, Link, FormControl, FormLabel, FormHelperText } from "@chakra-ui/react"
 import { Box } from "@chakra-ui/react"
 import { InputGroup } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
@@ -53,8 +44,8 @@ export default function SignIn() {
 		try {
 			fetch(`${process.env.REACT_APP_API_BASE}/auth/signin`, {
 				method: "POST",
-				body: JSON.stringify({ email: email, password: password }),
-				headers: { "Access-Control-Allow-Origin": "*" },
+				body: JSON.stringify({ email, password }),
+				headers: { "Content-type": "application/json" },
 			}).then((res) => {
 				if (res.ok) {
 					setLoading(false)
@@ -73,14 +64,7 @@ export default function SignIn() {
 
 	return (
 		<>
-			<Box
-				width="100vw"
-				height="100vh"
-				display="flex"
-				justifyContent="center"
-				alignItems="center"
-				bg={"#f2f2f2"}
-			>
+			<Box width="100vw" height="100vh" display="flex" justifyContent="center" alignItems="center" bg={"#f2f2f2"}>
 				<Box
 					w={[300, 400, 500]}
 					p={4}
@@ -102,12 +86,7 @@ export default function SignIn() {
 						<FormControl experimental_spaceY={"4"}>
 							<Box>
 								<FormLabel htmlFor="email">Email address</FormLabel>
-								<Input
-									id="email"
-									type="email"
-									value={email}
-									onChange={handleChangeEmail}
-								/>
+								<Input id="email" type="email" value={email} onChange={handleChangeEmail} />
 							</Box>
 
 							<Box>
@@ -130,12 +109,7 @@ export default function SignIn() {
 							</Box>
 
 							<Box width={"100%"} display="flex" flexDirection={"column"}>
-								<Button
-									bgColor={"#4DCCBD"}
-									textColor="white"
-									type="submit"
-									isLoading={loading}
-								>
+								<Button bgColor={"#4DCCBD"} textColor="white" type="submit" isLoading={loading}>
 									Connexion
 								</Button>
 								<Box color={"black"} display="flex" experimental_spaceX={"1"}>
