@@ -265,22 +265,20 @@ const Trip = () => {
     useEffect(() => {
       if (!map) return;
       const arr: any[] = [];
-      console.log(recap)
-      recap.map(async (x) => {
-        if (!x.location) {
-          let loc = await getLocation(x.address)
-          arr.push(L.latLng([loc.lat, loc.lng]))
-        }
-        else arr.push(L.latLng([x.location.lat, x.location.lng]))
+      recap.forEach((x, i) => {
+        setTimeout(async () => {
+          if (!x.location) {
+            let loc = await getLocation(x.address)
+            arr.push(L.latLng([loc.lat, loc.lng]))
+          }
+          else arr.push(L.latLng([x.location.lat, x.location.lng]))
+        }, 1500 * i)
       });
-      console.log('ARR', arr)
       const routingControl = L?.Routing?.control({
         waypoints: arr,
       }).addTo(map);
-
       return () => map?.removeControl(routingControl);
-
-    }, []);
+    }, [map]);
     return null;
   };
 
