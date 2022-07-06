@@ -1,7 +1,7 @@
 import "./trip.scss";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
+import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useEffect, useState } from "react";
@@ -65,14 +65,12 @@ const Trip = () => {
       const arr = [];
       recap.map((x) => x.selected && arr.push(L.latLng(x.coordinates)));
       const routingControl = L?.Routing?.control({
-        waypoints: arr,
-        waypointMode: 'snap',
-        router: L.Routing.Mapzen('valhalla-apikey', 'pedestrian'),
-        formatter: L.Routing.Mapzen.Formatter()
+        waypoints: arr
       }).addTo(map);
 
       return () => map?.removeControl(routingControl);
     }, [map]);
+    
     return null;
   };
 

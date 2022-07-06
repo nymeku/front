@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { Item } from "../../types";
 import { API_URL } from "../../constantes";
+import { getLocation } from "../../services/location-service";
 
 type AugmentedItem = Item & {
   selected: boolean;
@@ -208,7 +209,7 @@ async function fetchSelection(id: string): Promise<{ data: AugmentedItem[], conf
   if (!items?.length) {
     throw new Error("No items")
   }
-  return {data : items.slice(1) as AugmentedItem[], config: items[0] }
+  return { data: items.slice(1) as AugmentedItem[], config: items[0] }
 
 }
 
@@ -229,6 +230,7 @@ const Trip = () => {
   const [recap, setR] = useState<AugmentedItem[] | null>(null);
   const [config, setConfig] = useState<Config | null>(null);
   const { id } = useParams()
+
   useEffect(() => {
     if (!id) {
       setR([])
@@ -244,6 +246,7 @@ const Trip = () => {
         })
     }
   }, [id])
+
   useEffect(() => {
     delete L.Icon.Default.prototype._getIconUrl;
     L.Icon.Default.mergeOptions({
@@ -262,13 +265,22 @@ const Trip = () => {
     useEffect(() => {
       if (!map) return;
       const arr: any[] = [];
-      recap.map((x) => x.selected && arr.push(L.latLng(x.location)));
+      console.log(recap)
+      recap.map(async (x) => {
+        if (!x.location) {
+          let loc = await getLocation(x.address)
+          arr.push(L.latLng([loc.lat, loc.lng]))
+        }
+        else arr.push(L.latLng([x.location.lat, x.location.lng]))
+      });
+      console.log('ARR', arr)
       const routingControl = L?.Routing?.control({
         waypoints: arr,
       }).addTo(map);
 
       return () => map?.removeControl(routingControl);
-    }, [map]);
+
+    }, []);
     return null;
   };
 
@@ -284,13 +296,13 @@ const Trip = () => {
       })
     );
   };
-  console.log(recap);
+
   return (
     <div className="trip">
       <div className="hero">
         <MapContainer
           // @ts-ignore
-          center={recap[0].location}
+          center={[recap?.[0]?.location?.lat || 1, recap?.[0]?.location?.lng || 1]}
           zoom={13}
           scrollWheelZoom={false}
         >
@@ -308,7 +320,7 @@ const Trip = () => {
           <div className="activity">
             {recap.map((x, i) => (
               <div
-              key={x.reference + i}
+                key={x.reference + i}
                 className={"card " + (recap[i].selected && "selected")}
                 onClick={() => setSelection(i)}
               >
@@ -330,7 +342,7 @@ const Trip = () => {
         backgroundColor: "var(--blue-joy)",
         marginTop: 20,
         marginBottom: 120,
-        marginInline:"var(--margin)",
+        marginInline: "var(--margin)",
         borderRadius: 15,
         color: "white",
         fontSize: 28
