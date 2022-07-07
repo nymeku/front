@@ -51,7 +51,7 @@ type Config = {
 
 function makePrintable(config: Config, selection: AugmentedItem[]) {
   const data: string = selection.map(item => {
-    return `<div style="display:flex;flex-direction: column; border: 1px solid lightgray;width:300px;border-radius: 8px;overflow:hidden;"><img src="${item.photos?.length ? item.isGoogle !== false ? linkFromReference(item.photos[0], 400): item.photos[0]: ""}" alt="" style="width:300px;height:200px;"/><div style="display:grid;grid-template-columns: auto 1fr;grid-auto-rows: 1fr; padding: 16px 20px;column-gap: 20px;"><span style="color: darkgray;font-size:0.8rem">Nom</span><span style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">${item.name}</span><span style="color: darkgray;font-size:0.8rem">Categorie</span><span style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">${parseType(item.types[0])}</span><span style="color: darkgray;font-size:0.8rem">Adresse</span> <span style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">${item.address}</span></div></div>`
+    return `<div style="display:flex;flex-direction: column; border: 1px solid lightgray;width:300px;border-radius: 8px;overflow:hidden;"><img src="${item.photos?.length ? item.isGoogle !== false ? linkFromReference(item.photos[0], 400) : item.photos[0] : ""}" alt="" style="width:300px;height:200px;"/><div style="display:grid;grid-template-columns: auto 1fr;grid-auto-rows: 1fr; padding: 16px 20px;column-gap: 20px;"><span style="color: darkgray;font-size:0.8rem">Nom</span><span style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">${item.name}</span><span style="color: darkgray;font-size:0.8rem">Categorie</span><span style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">${parseType(item.types[0])}</span><span style="color: darkgray;font-size:0.8rem">Adresse</span> <span style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">${item.address}</span></div></div>`
   }).join("<br/>")
   return `data:text/html;charset=utf8,<html><head><style>@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");*{font-family: "Nunito Sans", sans-serif;}</style><title>Votre provhain voyage</title></head><body><h1>Votre prochain voyage</h1><div>Destination: ${config.destination}<br/>Dates: Du ${new Date(config.from).toLocaleDateString()} au ${new Date(config.to).toLocaleDateString()}</div><br/><div style="display: flex; flex-wrap:wrap; gap: 24px;">${data}</div>
   <p><a href="${window.location.href}">Voir en ligne</a><br/> ou utiliser ce lien : ${window.location.href}<br/>Généré le ${new Date().toLocaleString()}</p><script>window.onload = ()=>print();</script></body></html>`
@@ -67,6 +67,15 @@ const Trip = () => {
     } else {
       fetchSelection(id)
         .then(({ data, config }) => {
+          data.map(x => x.selected = true)
+          data.forEach((x, i) => {
+            setTimeout(async () => {
+              if (!x.location) {
+                // @ts-ignore
+                x.location = await getLocation(x.address)
+              }
+            }, 2000 * i)
+          });
           setR(data)
           setConfig(config)
         })
@@ -96,21 +105,19 @@ const Trip = () => {
       if (!map) return;
       const arr: any[] = [];
       recap.forEach((x, i) => {
-        setTimeout(async () => {
-          if (!x.location) {
-            let loc = await getLocation(x.address)
-            arr.push(L.latLng([loc.lat, loc.lng]))
-          }
-          else arr.push(L.latLng([x.location.lat, x.location.lng]))
-        }, 2000 * i)
+        x.location && arr.push(L.latLng([x?.location?.lat, x?.location?.lng]))
       });
-      const routingControl = L?.Routing?.control({
-        waypoints: arr,
-      }).addTo(map);
-      return () => map?.removeControl(routingControl);
-    }, [map]);
+      if (arr.length > 0) {
+        const routingControl = L?.Routing?.control({
+          waypoints: arr,
+        }).addTo(map);
+        return () => map?.removeControl(routingControl);
+      }
+    }, [map, recap]);
     return null;
   };
+
+  console.log(recap)
 
   const setSelection = (index: number) => {
     setR(
@@ -152,7 +159,7 @@ const Trip = () => {
                 className={"card " + (recap[i].selected && "selected")}
                 onClick={() => setSelection(i)}
               >
-                <img src={x.photos?.length ? x.isGoogle !== false ? linkFromReference(x.photos[0],400) : x.photos[0] : ""}></img>
+                <img src={x.photos?.length ? x.isGoogle !== false ? linkFromReference(x.photos[0], 400) : x.photos[0] : ""}></img>
                 <div className="description">
                   <span>{parseType(x.types[0])}</span>
                   <span>{x.name}</span>
@@ -174,7 +181,7 @@ const Trip = () => {
         borderRadius: 15,
         color: "white",
         fontSize: 28
-      }} onClick={() => window.open(makePrintable(config!, recap), "_blank")}>Enregistez votre planning</button>
+      }} onClick={() => window.open(makePrintable(config!, recap), "_blank")}>Enregistrez votre planning</button>
     </div>
   );
 };
