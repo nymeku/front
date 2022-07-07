@@ -17,7 +17,8 @@ const Card: React.FC<CardProps> = function ({ reference, photos, name, address, 
 
     /* Using the IntersectionObserver API to determine if the card is visible. */
     React.useEffect(() => {
-        if (!card.current) return
+      if(document.body.getBoundingClientRect().width < 450) return
+      if (!card.current) return
         /* Using the IntersectionObserver API to determine if the card is visible. */
         const obs = new IntersectionObserver(
             function ([{ intersectionRatio }]) {
