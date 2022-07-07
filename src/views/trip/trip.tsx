@@ -272,7 +272,7 @@ const Trip = () => {
             arr.push(L.latLng([loc.lat, loc.lng]))
           }
           else arr.push(L.latLng([x.location.lat, x.location.lng]))
-        }, 1500 * i)
+        }, 2000 * i)
       });
       const routingControl = L?.Routing?.control({
         waypoints: arr,
