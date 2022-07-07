@@ -1,19 +1,19 @@
-import React from "react"
-import "./home.scss"
-import { MdFlightTakeoff } from "react-icons/md"
-import { GiMaracas } from "react-icons/gi"
-import Searchbar from "../../components/searchbar"
-import Button from "../../components/button"
-import { Link, useNavigate } from "react-router-dom"
-import HomeFooter from "../../components/home-footer"
-import overrideScroll from "../../contexts/react-scroll"
+import React from "react";
+import "./home.scss";
+import { MdFlightTakeoff } from "react-icons/md";
+import { GiMaracas } from "react-icons/gi";
+import Searchbar from "../../components/searchbar";
+import Button from "../../components/button";
+import { Link, useNavigate } from "react-router-dom";
+import HomeFooter from "../../components/home-footer";
+import overrideScroll from "../../contexts/react-scroll";
 
 const images: string[] = [
-	"/img/hero-4.jpg",
-	"/img/hero-3.jpg",
-	"/img/hero-2.jpg",
-	"/img/hero-1.jpg",
-]
+  "/img/hero-4.jpg",
+  "/img/hero-3.jpg",
+  "/img/hero-2.jpg",
+  "/img/hero-1.jpg",
+];
 const Home: React.FC = () => {
 	const navigate = useNavigate()
 	React.useEffect(() => {
@@ -25,11 +25,11 @@ const Home: React.FC = () => {
 				<img className="background" src="/img/header.png" alt="" />
 				<img className="logo" src="https://timenjoy.fr/img/logo-dark.svg" alt="" />
 				<nav>
-					<Link to="/enjoy">Evenements</Link>
+					{/* <Link to="/enjoy">Evenements</Link>
 					<Link to="/sleep">Hotels</Link>
 					<Link to="/travel">Transports</Link>
 					<Link to="/travel">Restaurants</Link>
-					<Link to="/travel">Bars</Link>
+					<Link to="/travel">Bars</Link> */}
 					<Link to="/auth/signin">Connexion</Link>
 				</nav>
 			</header>
@@ -126,4 +126,4 @@ Découvrez nos villes tendances du moment.
 	)
 }
 
-export default Home
+export default Home;
