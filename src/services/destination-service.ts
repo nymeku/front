@@ -17,7 +17,7 @@ export async function discover(city: string, { from, to }: { from: number; to: n
 	from && params.append("from", from.toString())
 	to && params.append("to", to.toString())
 	const res = await fetch(API_URL + "/discover/" + city + "?" + params.toString(), {
-		headers: { "Content-type": "application/json" },
+		headers: { "Content-type": "application/json", "Access-Control-Allow-Origin": "*" },
 	})
 	if (!res.ok) throw new Error(res.statusText)
 	const data = (await res.json()) as DiscoveryResponse
