@@ -45,7 +45,7 @@ export default function SignIn() {
 			fetch(`${process.env.REACT_APP_API_BASE}/auth/signin`, {
 				method: "POST",
 				body: JSON.stringify({ email, password }),
-				headers: { "Content-type": "application/json" },
+				headers: { "Content-type": "application/json", "Access-Control-Allow-Origin": "*" },
 			}).then((res) => {
 				if (res.ok) {
 					setLoading(false)
