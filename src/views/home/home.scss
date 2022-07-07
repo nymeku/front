@@ -62,6 +62,7 @@ main.home {
 	.hero {
 		position: relative;
 		width: 100vw;
+		min-height: 50vh;
 		aspect-ratio: 2.15;
 		overflow: clip;
 		z-index: 1;
