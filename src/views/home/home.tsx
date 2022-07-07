@@ -14,6 +14,8 @@ const images: string[] = [
   "/img/hero-2.jpg",
   "/img/hero-1.jpg",
 ];
+
+
 const Home: React.FC = () => {
 	const navigate = useNavigate()
 	React.useEffect(() => {
@@ -30,13 +32,14 @@ const Home: React.FC = () => {
 					<Link to="/travel">Transports</Link>
 					<Link to="/travel">Restaurants</Link>
 					<Link to="/travel">Bars</Link> */}
-					<Link to="/auth/signin">Connexion</Link>
+
+					<div className="link" onClick={localStorage.getItem("id") ? () => {localStorage.clear(); navigate("/")} : () => navigate("/auth/signin")}>{localStorage.getItem("id") ? "Se déconnecter" : "Connexion"}</div>
 				</nav>
 			</header>
 			<section className="hero">
 				<div className="background">
 					{images.map((a) => (
-						<div>
+						<div key={a}>
 							<img src={a} alt={a} />
 						</div>
 					))}

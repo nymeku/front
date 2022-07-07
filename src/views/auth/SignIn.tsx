@@ -46,8 +46,10 @@ export default function SignIn() {
 				method: "POST",
 				body: JSON.stringify({ email, password }),
 				headers: { "Content-type": "application/json", "Access-Control-Allow-Origin": "*" },
-			}).then((res) => {
+			}).then(async (res) => {
 				if (res.ok) {
+					const body = await res.json()
+					localStorage.setItem("id", body.id)
 					setLoading(false)
 					navigation("/")
 					return
