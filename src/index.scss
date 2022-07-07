@@ -33,8 +33,8 @@ a:active {
 	color: unset;
 }
 :root {
-	--margin: 120px;
 	--grey: #383a3c;
+  --margin: 120px;
 	--false-black: rgb(50, 50, 50);
 	--blue-joy: #4dccbd;
 	--orange-joy: #eb6424;
@@ -49,6 +49,18 @@ a:active {
 	--row-gap: 20px;
 	user-select: none;
 }
+
+@media screen and (max-width: 640px) {
+  :root {
+	--margin: 40px;
+  }
+}
+@media screen and (max-width: 450px) {
+  :root {
+	--margin: 20px;
+  }
+}
+
 html {
 	background-color: #fcfcfc;
 	// overscroll-behavior-y: contain;

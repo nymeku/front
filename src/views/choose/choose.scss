@@ -84,6 +84,14 @@ main.overview {
         &.conclusion {
             margin-top: 100px;
             margin-bottom: 200px;
+            margin-left: var(--margin);
+            max-width: calc(100vw - 2 * var(--margin));
+            nav {
+              margin-top: 20px;
+              display: flex;
+              flex-wrap: wrap;
+              //justify-content: space-around;
+            }
             a {
                 font-size: 18px;
                 font-weight: 500;
@@ -170,4 +178,8 @@ main.overview {
             }
         }
     }
+}
+ 
+@media screen and (max-width: 450px) {
+
 }
