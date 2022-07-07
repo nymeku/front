@@ -57,11 +57,8 @@ const Home: React.FC = () => {
 				<div className="text">
 					<h2>Des milliers de destinations à portée de main.</h2>
 					<p>
-						Suspendisse ac tristique sapien. Vestibulum nisi orci, finibus in massa vel,
-						porta imperdiet dolor. Duis sit amet orci eget arcu ultrices egestas pretium
-						nec massa. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed
-						nec lectus massa. Quisque arcu quam, porta vel tincidunt et, volutpat ut
-						massa.
+					Une envie de voyage ? Trip n'fun vous accompagne à la découverte des meilleurs événements et activités dans toutes les villes de France.
+Découvrez nos villes tendances du moment.
 					</p>
 					<Button to="" text="Choisir une destination" />
 				</div>
@@ -88,11 +85,7 @@ const Home: React.FC = () => {
 						Enivrez-vous des cultures lointaines et découvrez une part de vous-même.
 					</h2>
 					<p>
-						Nunc dapibus nunc lorem, sed rhoncus massa tincidunt eget. Integer
-						ullamcorper felis at odio mattis, id mattis dolor vulputate. Duis sed est
-						eget tellus ultricies finibus luctus id tellus. Phasellus urna enim, luctus
-						nec felis in, pulvinar eleifend eros. Duis rhoncus risus vel turpis mollis,
-						non lobortis ipsum aliquam.
+					Retrouvez le meilleur des événements, bons plans et des activités de votre ville en un instant.
 					</p>
 					<Button to="" text="Choisir une activité" />
 				</div>
@@ -101,9 +94,7 @@ const Home: React.FC = () => {
 				<div className="text">
 					<h2>Vous pensez avoir tout vu&nbsp;? On en doute fort&nbsp;!</h2>
 					<p>
-						Fusce hendrerit, nibh quis aliquet sollicitudin, arcu elit pretium magna, in
-						varius metus libero nec magna. Suspendisse non ante a mi bibendum ornare a
-						non augue.
+					Une envie de sortir cette semaine, ce week-end ? Découvrez le meilleur des événements, bons plans et activités à faire près de chez vous.
 					</p>
 					<Button to="" text="Découvrez ce que vous manquez" />
 				</div>
@@ -120,9 +111,8 @@ const Home: React.FC = () => {
 			<section className="sect-4">
 				<h2>Laissez-vous guider pas-à-pas dans l'organisation de vos vacances.</h2>
 				<h4>
-					Fusce hendrerit, nibh quis aliquet sollicitudin, arcu elit pretium magna, in
-					varius metus libero nec magna. Suspendisse non ante a mi bibendum ornare a non
-					augue.
+					Pas besoin de se prendre la tête. Nous sommes là pour vous accompagner tout au long de votre
+					voyage.
 				</h4>
 				<img src="/img/map.jpg" alt="" />
 				<Searchbar
