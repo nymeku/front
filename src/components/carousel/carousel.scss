@@ -103,3 +103,8 @@
         }
     }
 }
+@media screen and (max-width: 450px) {
+  .carousel .carousel-content .card:not(:hover) .add:not(.remove) {
+    opacity: 1;
+  }
+}
