@@ -119,7 +119,8 @@ const Trip = () => {
         .then(async ({ data, config }) => {
           for (const x of data) {
             x.selected = true;
-            if ((!x.location.lat) || (!x.location.lat && !x.location.lng)) {
+            // @ts-ignore
+            if ((!x.location.lat) || (isNaN(!x.location.lat) || !isNaN(x.location.lng))) {
               x.location = await getLocation(x.address);
             }
             await wait(1_100);
