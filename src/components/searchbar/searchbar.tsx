@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import "./searchbar.scss"
 
 type SearchBarProps = {
@@ -13,7 +13,6 @@ type SearchbarSubmitEvent = React.FormEvent<HTMLFormElement> & {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ title, placeholder, submit }) => {
-    const [filter, setF] = useState()
     function onSubmit(e: SearchbarSubmitEvent) {
         const value = e.target[0].value?.toLowerCase()
         if (!value) return
