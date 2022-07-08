@@ -25,8 +25,8 @@ export async function discover(city: string, { from, to }: { from: number; to: n
 		return {
 			name: e.title,
 			location: {
-				lat: e.lat,
-				lng: e.lng,
+				lat: e.location.lat,
+				lng: e.location.lng,
 			},
 			photos: [e.thumbnail],
 			rating: e.venue.rating,

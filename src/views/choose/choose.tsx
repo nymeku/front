@@ -67,7 +67,6 @@ const Choose: React.FC<ChooseProps> = ({ type }) => {
     const to = search.get("to") || (Date.now() + 1000 * 60 * 60 * 24 * 7).toString()
     const navigate = useNavigate()
     const [data, setData] = React.useState<DiscoveryResponse | false>()
-    
     React.useEffect(() => {
         if (cityParams)
             discover(cityParams, { from: parseInt(from), to: parseInt(to) })
