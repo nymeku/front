@@ -1,7 +1,23 @@
 .search {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     padding: 24px;
+    .filters {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        box-shadow: 0;
+        width: 30%;
+        input {
+            margin-left: 6px;
+            margin-right: 12px;
+            width: 10%;
+        }
+    }
     form {
         display: flex;
         align-items: center;

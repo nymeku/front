@@ -113,6 +113,7 @@ const Trip = () => {
   const { id } = useParams();
   const isFetching = useRef<boolean>(false);
 
+  console.log('RECAP', recap)
   useEffect(() => {
     if (!id) {
       setR([]);
