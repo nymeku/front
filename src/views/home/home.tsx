@@ -18,7 +18,7 @@ const Home: React.FC = () => {
 	return (
 		<main className="home">
 			<header>
-				<img className="background" src="/img/header.png" alt="" />
+				<img className="background" src="/tripnfun-LP/img/header.png" alt="" />
 				<img className="logo" src="https://timenjoy.fr/img/logo-dark.svg" alt="" />
 				<nav>
 					{/* <Link to="/enjoy">Evenements</Link>
@@ -54,25 +54,21 @@ const Home: React.FC = () => {
 					<h1 className="_noscrollbar">Vivez de nouvelles expériences</h1>
 					<h3>Planifiez votre prochain voyage et profitez pleinement de votre destination</h3>
 				</div>
-				<Searchbar
-					title="Je veux aller à"
-					placeholder="Milan"
-					submit={(city) => navigate("/destination/" + city)}
-				/>
+				<Searchbar title="Je veux aller à" placeholder="Milan" submit={(city) => navigate("/destination/" + city)} />
 			</section>
 			<section className="sect-2 left ">
 				<div className="text">
 					<h2>Des milliers de destinations à portée de main.</h2>
 					<p>
-						Une envie de voyage ? Trip n'fun vous accompagne à la découverte des meilleurs événements et
-						activités dans toutes les villes de France. Découvrez nos villes tendances du moment.
+						Une envie de voyage ? Trip n'fun vous accompagne à la découverte des meilleurs événements et activités dans toutes les villes de France. Découvrez nos villes tendances du
+						moment.
 					</p>
 					<Button to="" text="Choisir une destination" />
 				</div>
 				<div className="image-block japan">
-					<img src="/img/japan-2.jpg" alt="" />
-					<img src="/img/japan-3.jpg" alt="" />
-					<img src="/img/japan-1.jpg" alt="" />
+					<img src="/tripnfun-LP/img/japan-2.jpg" alt="" />
+					<img src="/tripnfun-LP/img/japan-3.jpg" alt="" />
+					<img src="/tripnfun-LP/img/japan-1.jpg" alt="" />
 					<Link to="/destination/tokyo">
 						Le Japon vous attend <MdFlightTakeoff />
 					</Link>
@@ -80,34 +76,29 @@ const Home: React.FC = () => {
 			</section>
 			<section className="sect-2 right">
 				<div className="image-block mexico">
-					<img src="/img/mexico-1.jpg" alt="" />
-					<img src="/img/mexico-2.jpg" alt="" />
-					<img src="/img/mexico-3.jpg" alt="" />
+					<img src="/tripnfun-LP/img/mexico-1.jpg" alt="" />
+					<img src="/tripnfun-LP/img/mexico-2.jpg" alt="" />
+					<img src="/tripnfun-LP/img/mexico-3.jpg" alt="" />
 					<Link to="">
 						Séjournez au Mexique <GiMaracas />
 					</Link>
 				</div>
 				<div className="text">
 					<h2>Enivrez-vous des cultures lointaines et découvrez une part de vous-même.</h2>
-					<p>
-						Retrouvez le meilleur des événements, bons plans et des activités de votre ville en un instant.
-					</p>
+					<p>Retrouvez le meilleur des événements, bons plans et des activités de votre ville en un instant.</p>
 					<Button to="" text="Choisir une activité" />
 				</div>
 			</section>
 			<section className="sect-2 left">
 				<div className="text">
 					<h2>Vous pensez avoir tout vu&nbsp;? On en doute fort&nbsp;!</h2>
-					<p>
-						Une envie de sortir cette semaine, ce week-end ? Découvrez le meilleur des événements, bons
-						plans et activités à faire près de chez vous.
-					</p>
+					<p>Une envie de sortir cette semaine, ce week-end ? Découvrez le meilleur des événements, bons plans et activités à faire près de chez vous.</p>
 					<Button to="" text="Découvrez ce que vous manquez" />
 				</div>
 				<div className="image-block food">
-					<img src="/img/food-1.jpg" alt="" />
-					<img src="/img/food-2.jpg" alt="" />
-					<img src="/img/food-3.jpg" alt="" />
+					<img src="/tripnfun-LP/img/food-1.jpg" alt="" />
+					<img src="/tripnfun-LP/img/food-2.jpg" alt="" />
+					<img src="/tripnfun-LP/img/food-3.jpg" alt="" />
 				</div>
 			</section>
 			<section className="sect-3" style={{ backgroundImage: 'url("/img/boat.jpg")' }}>
@@ -116,10 +107,8 @@ const Home: React.FC = () => {
 			</section>
 			<section className="sect-4">
 				<h2>Laissez-vous guider pas-à-pas dans l'organisation de vos vacances.</h2>
-				<h4>
-					Pas besoin de se prendre la tête. Nous sommes là pour vous accompagner tout au long de votre voyage.
-				</h4>
-				<img src="/img/map.jpg" alt="" />
+				<h4>Pas besoin de se prendre la tête. Nous sommes là pour vous accompagner tout au long de votre voyage.</h4>
+				<img src="/tripnfun-LP/img/map.jpg" alt="" />
 				<Searchbar title="Je veux voir" placeholder="le Festival Tomorrowland" submit={() => void 0} />
 			</section>
 			<HomeFooter />
